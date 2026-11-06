@@ -1,0 +1,33 @@
+# Legacy bulk/pickle graph template retained for the compatibility worker.
+root: ./data
+input_root: shards_bulk
+output_root: graphs_heavy_atom_v1
+report_prefix: graph_heavy_atom_v1
+parser_version: heavy_atom_graph_v1_rdkit_2d
+
+domains:
+  small_molecule:
+    parser: smiles
+  peptide:
+    parser: fasta
+    rdkit_fasta_flavor: 0
+  protein:
+    parser: fasta
+    rdkit_fasta_flavor: 0
+  rna:
+    parser: fasta
+    rdkit_fasta_flavor: 2
+  dna:
+    parser: fasta
+    rdkit_fasta_flavor: 6
+
+output:
+  max_graphs_per_chunk: 20000
+  max_nodes_per_chunk: 2000000
+  zstd_level: 3
+  zstd_threads: 2
+
+runtime:
+  workers: 16
+  pending_multiplier: 4
+  maxtasksperchild: 200

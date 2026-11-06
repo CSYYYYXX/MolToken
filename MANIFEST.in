@@ -1,0 +1,15 @@
+include LICENSE THIRD_PARTY_NOTICES.md README.md
+include .gitignore
+recursive-include requirements *.txt
+recursive-include moltoken/assets *.json *.csv
+recursive-include pipeline *.cpp
+recursive-include src *.cpp
+recursive-include tools *.cpp *.h *.sh LICENSE
+recursive-include cli *.R *.txt
+recursive-include docs *.md
+recursive-include examples *.py *.sh *.json *.yaml *.jsonl
+recursive-include configs *.yaml *.json *.txt
+recursive-include tests *.py *.tsv
+global-exclude __pycache__ *.py[cod] *.so
+recursive-include experiments *.py *.sh *.cpp *.h *.json *.yaml *.yml *.txt *.md
+recursive-include ops *.py *.sh *.txt

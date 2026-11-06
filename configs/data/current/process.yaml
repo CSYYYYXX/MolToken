@@ -1,0 +1,254 @@
+root: ./data
+
+dedup:
+  backend: sqlite
+  dir: ./outputs/tmp/molscaling_dedup
+
+small_molecule:
+  allowed_elements:
+    - B
+    - C
+    - N
+    - O
+    - F
+    - Si
+    - P
+    - S
+    - Cl
+    - Br
+    - I
+    - Se
+    - Na
+    - K
+    - Ca
+    - Mg
+    - Zn
+    - Fe
+  heavy_atoms_min: 3
+  heavy_atoms_max: 128
+  mixture_policy: reject
+  isomeric_smiles: true
+
+protein:
+  alphabet: ACDEFGHIKLMNPQRSTVWY
+  min_length: 30
+  max_length: 4096
+  window_sizes: 64,128,256
+  stride: half
+  max_windows_per_record: 8
+
+peptide:
+  alphabet: ACDEFGHIKLMNPQRSTVWY
+  min_length: 5
+  max_length: 80
+  window_sizes: 80
+  stride: half
+  max_windows_per_record: 1
+
+dna:
+  alphabet: ACGT
+  min_length: 64
+  max_length: 1000000000
+  window_sizes: 128,256
+  stride: 256
+  max_windows_per_record: 0
+  max_single_base_fraction: 0.8
+
+rna:
+  alphabet: ACGU
+  min_length: 16
+  max_length: 1000000000
+  window_sizes: 64,128,256
+  stride: half
+  max_windows_per_record: 16
+  max_single_base_fraction: 0.8
+  t_to_u: true
+
+sources:
+  - name: chembl_36_chemreps
+    domain: small_molecule
+    source: ChEMBL
+    source_version: "36"
+    input: raw/small_molecule/chembl/chembl_36_chemreps.txt.gz
+    output: processed/small_molecule/chembl_36_chemreps.jsonl.zst
+    format: chembl_chemreps_tsv_gz
+
+  - name: pubchem_cid_smiles
+    domain: small_molecule
+    source: PubChem
+    source_version: compound_extras_current
+    input: raw/small_molecule/pubchem/CID-SMILES.gz
+    output: processed/small_molecule/pubchem_cid_smiles.jsonl.zst
+    format: pubchem_cid_smiles_gz
+    input_keep_fraction: 0.05
+    keep_fraction: 0.5
+    sample_seed: pubchem_cid_smiles_v1
+
+  - name: pubchem_cid_smiles_extra
+    domain: small_molecule
+    source: PubChem
+    source_version: compound_extras_current
+    input: raw/small_molecule/pubchem/CID-SMILES.gz
+    output: processed/small_molecule/pubchem_cid_smiles_extra.jsonl.zst
+    format: pubchem_cid_smiles_gz
+    input_keep_min_fraction: 0.05
+    input_keep_fraction: 0.15
+    keep_fraction: 0.5
+    sample_seed: pubchem_cid_smiles_v1
+
+  - name: pubchem_cid_smiles_extra2
+    domain: small_molecule
+    source: PubChem
+    source_version: compound_extras_current
+    input: raw/small_molecule/pubchem/CID-SMILES.gz
+    output: processed/small_molecule/pubchem_cid_smiles_extra2.jsonl.zst
+    format: pubchem_cid_smiles_gz
+    skip_if_output_exists: true
+    input_keep_min_fraction: 0.15
+    input_keep_fraction: 0.35
+    keep_fraction: 0.5
+    sample_seed: pubchem_cid_smiles_v1
+
+  - name: pubchem_cid_smiles_extra3
+    domain: small_molecule
+    source: PubChem
+    source_version: compound_extras_current
+    input: raw/small_molecule/pubchem/CID-SMILES.gz
+    output: processed/small_molecule/pubchem_cid_smiles_extra3.jsonl.zst
+    format: pubchem_cid_smiles_gz
+    skip_if_output_exists: true
+    input_keep_min_fraction: 0.35
+    input_keep_fraction: 0.70
+    keep_fraction: 1.0
+    sample_seed: pubchem_cid_smiles_v1
+
+  - name: pubchem_cid_smiles_extra4
+    domain: small_molecule
+    source: PubChem
+    source_version: compound_extras_current
+    input: raw/small_molecule/pubchem/CID-SMILES.gz
+    output: processed/small_molecule/pubchem_cid_smiles_extra4.jsonl.zst
+    format: pubchem_cid_smiles_gz
+    skip_if_output_exists: true
+    input_keep_min_fraction: 0.70
+    input_keep_fraction: 1.00
+    keep_fraction: 1.0
+    sample_seed: pubchem_cid_smiles_v1
+
+  - name: swissprot_fasta
+    domain: protein
+    source: UniProtKB/Swiss-Prot
+    source_version: current_release_2026_01
+    input: raw/protein/swissprot/uniprot_sprot.fasta.gz
+    output: processed/protein/swissprot_fasta.jsonl.zst
+    format: fasta_gz
+
+  - name: uniref50_fasta
+    domain: protein
+    source: UniRef
+    source_version: current_release_2026_01
+    input: raw/protein/uniref50/uniref50.fasta.gz
+    output: processed/protein/uniref50_fasta.jsonl.zst
+    format: fasta_gz
+    skip_if_output_exists: true
+    input_keep_fraction: 0.5
+    keep_fraction: 1.0
+    sample_seed: uniref50_fasta_v1
+
+  - name: rnacentral_active_fasta
+    domain: rna
+    source: RNAcentral
+    source_version: current_release_2025_09
+    input: raw/rna/rnacentral/rnacentral_active.fasta.gz
+    output: processed/rna/rnacentral_active_fasta.jsonl.zst
+    format: fasta_gz
+    skip_if_output_exists: true
+    input_keep_fraction: 0.5
+    keep_fraction: 1.0
+    sample_seed: rnacentral_active_v1
+
+  - name: rfam_RF00001_fasta
+    domain: rna
+    source: Rfam
+    source_version: current_release_2026_01
+    input: raw/rna/rfam/RF00001.fa.gz
+    output: processed/rna/rfam_RF00001_fasta.jsonl.zst
+    format: fasta_gz
+
+  - name: rfam_RF00005_fasta
+    domain: rna
+    source: Rfam
+    source_version: current_release_2026_01
+    input: raw/rna/rfam/RF00005.fa.gz
+    output: processed/rna/rfam_RF00005_fasta.jsonl.zst
+    format: fasta_gz
+
+  - name: rfam_RF00017_fasta
+    domain: rna
+    source: Rfam
+    source_version: current_release_2026_01
+    input: raw/rna/rfam/RF00017.fa.gz
+    output: processed/rna/rfam_RF00017_fasta.jsonl.zst
+    format: fasta_gz
+
+  - name: rfam_RF00026_fasta
+    domain: rna
+    source: Rfam
+    source_version: current_release_2026_01
+    input: raw/rna/rfam/RF00026.fa.gz
+    output: processed/rna/rfam_RF00026_fasta.jsonl.zst
+    format: fasta_gz
+
+  - name: refseq_viral_genomic_fna
+    domain: dna
+    source: NCBI RefSeq
+    source_version: current_release_viral
+    input: raw/dna/refseq/viral/viral.1.1.genomic.fna.gz
+    output: processed/dna/refseq_viral_genomic_fna.jsonl.zst
+    format: fasta_gz
+
+  - name: refseq_archaea_genomic_fna
+    domain: dna
+    source: NCBI RefSeq
+    source_version: current_release_archaea
+    input: raw/dna/refseq/archaea/archaea.1.1.genomic.fna.gz
+    output: processed/dna/refseq_archaea_genomic_fna.jsonl.zst
+    format: fasta_gz
+
+  - name: refseq_fungi_genomic_fna
+    domain: dna
+    source: NCBI RefSeq
+    source_version: current_release_fungi
+    input: raw/dna/refseq/fungi/fungi.1.1.genomic.fna.gz
+    output: processed/dna/refseq_fungi_genomic_fna.jsonl.zst
+    format: fasta_gz
+
+  - name: refseq_bacteria_genomic_fna
+    domain: dna
+    source: NCBI RefSeq
+    source_version: current_release_bacteria
+    input: raw/dna/refseq/bacteria/bacteria.1.1.genomic.fna.gz
+    output: processed/dna/refseq_bacteria_genomic_fna.jsonl.zst
+    format: fasta_gz
+
+  - name: pepbenchmark_raw
+    domain: peptide
+    source: PepBenchmark
+    source_version: "ICLR_2026_raw_ba864554"
+    input: raw/peptide/pepbenchmark_raw
+    output: processed/peptide/pepbenchmark_raw.jsonl.zst
+    format: pepbenchmark_raw_snapshot
+
+  - name: protein_derived_peptide_swissprot
+    domain: peptide
+    source: protein_derived_peptide
+    source_version: "swissprot_current_release_2026_01"
+    input: processed/protein/swissprot_fasta.jsonl.zst
+    output: processed/peptide/protein_derived_peptide_swissprot.jsonl.zst
+    format: protein_derived_peptide_jsonl
+    skip_if_output_exists: true
+    input_keep_fraction: 0.35
+    keep_fraction: 1.0
+    sample_seed: protein_derived_peptide_swissprot_v1
+    fragment_lengths: 8,16,32,64
+    fragments_per_record: 1

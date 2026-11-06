@@ -1,0 +1,3 @@
+# Official MOSES evaluator. Install in a separate evaluation environment.
+molsets==1.0
+fcd-torch==1.0.7

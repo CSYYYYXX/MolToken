@@ -1,0 +1,21 @@
+root: ./data
+input_root: shards_normv2_all
+output_root: graphs_heavy_atom_normv2_compact_v1
+report_prefix: graph_heavy_atom_normv2_compact_v1
+parser_version: heavy_atom_graph_v1_rdkit_2d
+domains:
+  small_molecule: {parser: smiles}
+  peptide: {parser: fasta, rdkit_fasta_flavor: 0}
+  protein: {parser: fasta, rdkit_fasta_flavor: 0}
+  rna: {parser: fasta, rdkit_fasta_flavor: 2}
+  dna: {parser: fasta, rdkit_fasta_flavor: 6}
+output:
+  graph_format: compact
+  max_graphs_per_chunk: 20000
+  max_nodes_per_chunk: 2000000
+  zstd_level: 1
+  zstd_threads: 1
+runtime:
+  workers: 4
+  pending_multiplier: 2
+  maxtasksperchild: 0

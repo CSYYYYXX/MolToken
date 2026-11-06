@@ -1,0 +1,8 @@
+case_id	organism	model	dna
+synthetic	Escherichia coli	empty	
+synthetic	Escherichia coli	noncanonical	ATGNNNTAA
+synthetic	Escherichia coli	incomplete	ATGA
+synthetic	Escherichia coli	short	ATGTAA
+synthetic	Escherichia coli	undefined	ATGATGATGATGATGATGATGATGATGATGATGATGATGATGATGATGATGATG
+synthetic	Escherichia coli	valid_a	GCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCTAA
+synthetic	Escherichia coli	valid_b	GCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTGCCGCTTAA

@@ -1,0 +1,66 @@
+# Legacy bulk template. The normv2 compatibility worker rewrites its roots and
+# input inventory into a run-local config before execution.
+root: ./data
+output_root: clean_bulk
+
+dedup:
+  backend: sqlite
+  dir: ./outputs/tmp/molscaling_clean_dedup_bulk
+
+checks:
+  recompute_sha1: true
+  strict_length: true
+  strict_filter_status_ok: true
+  rdkit_small_molecule: true
+
+domains:
+  small_molecule:
+    normalized_type: smiles
+  protein:
+    alphabet: ACDEFGHIKLMNPQRSTVWY
+  peptide:
+    alphabet: ACDEFGHIKLMNPQRSTVWY
+  dna:
+    alphabet: ACGT
+  rna:
+    alphabet: ACGU
+
+inputs:
+  - domain: small_molecule
+    path: processed/small_molecule/chembl_36_chemreps.jsonl.zst
+  - domain: small_molecule
+    path: processed/small_molecule/pubchem_cid_smiles.jsonl.zst
+  - domain: small_molecule
+    path: processed/small_molecule/pubchem_cid_smiles_extra.jsonl.zst
+  - domain: small_molecule
+    path: processed/small_molecule/pubchem_cid_smiles_extra2.jsonl.zst
+  - domain: small_molecule
+    path: processed/small_molecule/pubchem_cid_smiles_extra3_bulk.jsonl.zst
+  - domain: small_molecule
+    path: processed/small_molecule/pubchem_cid_smiles_extra4_bulk.jsonl.zst
+  - domain: protein
+    path: processed/protein/swissprot_fasta.jsonl.zst
+  - domain: protein
+    path: processed/protein/uniref50_fasta_bulk.jsonl.zst
+  - domain: dna
+    path: processed/dna/refseq_viral_genomic_fna.jsonl.zst
+  - domain: dna
+    path: processed/dna/refseq_archaea_genomic_fna.jsonl.zst
+  - domain: dna
+    path: processed/dna/refseq_fungi_genomic_fna.jsonl.zst
+  - domain: dna
+    path: processed/dna/refseq_bacteria_genomic_fna.jsonl.zst
+  - domain: rna
+    path: processed/rna/rnacentral_active_fasta_bulk.jsonl.zst
+  - domain: rna
+    path: processed/rna/rfam_RF00001_fasta.jsonl.zst
+  - domain: rna
+    path: processed/rna/rfam_RF00005_fasta.jsonl.zst
+  - domain: rna
+    path: processed/rna/rfam_RF00017_fasta.jsonl.zst
+  - domain: rna
+    path: processed/rna/rfam_RF00026_fasta.jsonl.zst
+  - domain: peptide
+    path: processed/peptide/pepbenchmark_raw.jsonl.zst
+  - domain: peptide
+    path: processed/peptide/protein_derived_peptide_swissprot.jsonl.zst

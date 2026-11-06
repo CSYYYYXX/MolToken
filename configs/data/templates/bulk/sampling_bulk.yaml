@@ -1,0 +1,80 @@
+# Legacy bulk template. The normv2 compatibility worker rewrites its roots,
+# reports, and input inventory into a run-local config before execution.
+root: ./data
+
+seed: 20260518
+default_split: train
+valid_fraction: 0.005
+test_fraction: 0.005
+shard_uncompressed_bytes: 1073741824
+target_size_metric: compressed_storage_estimate
+output_root: shards_bulk
+report_prefix: sample_report_bulk
+latest_report_name: sample_report_bulk.latest.json
+manifest_name: dataset_manifest_bulk.json
+
+required_reports:
+  - reports/validate_smoke_uniref50_fasta_bulk.json
+  - reports/validate_smoke_rnacentral_active_fasta_bulk.json
+  - reports/validate_smoke_pubchem_cid_smiles_extra.json
+  - reports/validate_smoke_pubchem_cid_smiles_extra2.json
+  - reports/validate_smoke_pubchem_cid_smiles_extra3_bulk.json
+  - reports/validate_smoke_pubchem_cid_smiles_extra4_bulk.json
+  - reports/validate_smoke_protein_derived_peptide_swissprot.json
+
+budgets:
+  small_molecule:
+    target_uncompressed_bytes: 10000000000
+    max_estimated_heavy_atoms_fraction: 0.55
+  protein:
+    target_uncompressed_bytes: 6000000000
+    max_estimated_heavy_atoms_fraction: 0.25
+  dna:
+    target_uncompressed_bytes: 3000000000
+    max_estimated_heavy_atoms_fraction: 0.12
+  rna:
+    target_uncompressed_bytes: 1500000000
+    max_estimated_heavy_atoms_fraction: 0.08
+  peptide:
+    target_uncompressed_bytes: 500000000
+    max_estimated_heavy_atoms_fraction: 0.03
+
+inputs:
+  - domain: small_molecule
+    path: clean_bulk/small_molecule/chembl_36_chemreps.jsonl.zst
+  - domain: small_molecule
+    path: clean_bulk/small_molecule/pubchem_cid_smiles.jsonl.zst
+  - domain: small_molecule
+    path: clean_bulk/small_molecule/pubchem_cid_smiles_extra.jsonl.zst
+  - domain: small_molecule
+    path: clean_bulk/small_molecule/pubchem_cid_smiles_extra2.jsonl.zst
+  - domain: small_molecule
+    path: clean_bulk/small_molecule/pubchem_cid_smiles_extra3_bulk.jsonl.zst
+  - domain: small_molecule
+    path: clean_bulk/small_molecule/pubchem_cid_smiles_extra4_bulk.jsonl.zst
+  - domain: protein
+    path: clean_bulk/protein/swissprot_fasta.jsonl.zst
+  - domain: protein
+    path: clean_bulk/protein/uniref50_fasta_bulk.jsonl.zst
+  - domain: dna
+    path: clean_bulk/dna/refseq_viral_genomic_fna.jsonl.zst
+  - domain: dna
+    path: clean_bulk/dna/refseq_archaea_genomic_fna.jsonl.zst
+  - domain: dna
+    path: clean_bulk/dna/refseq_fungi_genomic_fna.jsonl.zst
+  - domain: dna
+    path: clean_bulk/dna/refseq_bacteria_genomic_fna.jsonl.zst
+  - domain: rna
+    path: clean_bulk/rna/rnacentral_active_fasta_bulk.jsonl.zst
+  - domain: rna
+    path: clean_bulk/rna/rfam_RF00001_fasta.jsonl.zst
+  - domain: rna
+    path: clean_bulk/rna/rfam_RF00005_fasta.jsonl.zst
+  - domain: rna
+    path: clean_bulk/rna/rfam_RF00017_fasta.jsonl.zst
+  - domain: rna
+    path: clean_bulk/rna/rfam_RF00026_fasta.jsonl.zst
+  - domain: peptide
+    path: clean_bulk/peptide/pepbenchmark_raw.jsonl.zst
+  - domain: peptide
+    path: clean_bulk/peptide/protein_derived_peptide_swissprot.jsonl.zst

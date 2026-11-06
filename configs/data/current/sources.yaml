@@ -1,0 +1,253 @@
+root: ./data
+
+sources:
+  - name: chembl_36_chemreps
+    domain: small_molecule
+    source: ChEMBL
+    source_version: "36"
+    license_note: "ChEMBL public FTP; preserve LICENSE and REQUIRED.ATTRIBUTION from release directory."
+    url: https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/chembl_36_chemreps.txt.gz
+    checksum_url: https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/checksums.txt
+    raw_subdir: small_molecule/chembl
+
+  - name: chembl_36_license
+    domain: small_molecule
+    source: ChEMBL
+    source_version: "36"
+    license_note: "License sidecar for ChEMBL 36."
+    url: https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/LICENSE
+    raw_subdir: small_molecule/chembl
+
+  - name: chembl_36_attribution
+    domain: small_molecule
+    source: ChEMBL
+    source_version: "36"
+    license_note: "Required attribution sidecar for ChEMBL 36."
+    url: https://ftp.ebi.ac.uk/pub/databases/chembl/ChEMBLdb/latest/REQUIRED.ATTRIBUTION
+    raw_subdir: small_molecule/chembl
+
+  - name: pubchem_cid_smiles
+    domain: small_molecule
+    source: PubChem
+    source_version: compound_extras_current
+    license_note: "PubChem public FTP Compound Extras CID-SMILES; use as large small-molecule supplement and deduplicate by canonical SMILES."
+    url: https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-SMILES.gz
+    raw_subdir: small_molecule/pubchem
+
+  - name: pubchem_cid_smiles_full_20260601
+    domain: small_molecule
+    source: PubChem
+    source_version: compound_extras_current_20260601
+    license_note: "PubChem public FTP Compound Extras CID-SMILES full file; downloaded into a versioned raw directory to avoid overwriting the earlier corpus snapshot."
+    url: https://ftp.ncbi.nlm.nih.gov/pubchem/Compound/Extras/CID-SMILES.gz
+    raw_subdir: small_molecule/pubchem_full_20260601
+
+  - name: zinc20_ml_smiles_chunks
+    domain: small_molecule
+    source: ZINC
+    source_version: ZINC20-ML_smiles_2021_10
+    license_note: "ZINC20 machine-learning SMILES chunks from the official files.docking.org bulk index; keep chunk tarballs and manifest for provenance before canonicalization/dedup."
+    download_method: indexed_http_chunks
+    url: https://files.docking.org/zinc20-ML/smiles/
+    raw_subdir: small_molecule/zinc20_ml_smiles
+
+  - name: zinc20_hf_parquet_mirror
+    domain: small_molecule
+    source: ZINC
+    source_version: ZINC20_HuggingFace_mirror_introvoyz041_719b18a
+    license_note: "HuggingFace mirror of ZINC20 used when official files.docking.org bulk files return 403 from the cluster network; preserve API snapshot and all parquet shards for provenance."
+    download_method: hf_dataset_file_list
+    hf_repo: introvoyz041/ZINC20
+    hf_revision: 719b18a4d149ebcb38bd45553edfbb7d95b31e4b
+    url: https://huggingface.co/api/datasets/introvoyz041/ZINC20?full=1
+    raw_subdir: small_molecule/zinc20_hf_parquet
+
+  - name: swissprot_fasta
+    domain: protein
+    source: UniProtKB/Swiss-Prot
+    source_version: current_release_2026_01
+    license_note: "UniProt public FTP reviewed Swiss-Prot FASTA; high-quality protein subset."
+    url: https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/uniprot_sprot.fasta.gz
+    raw_subdir: protein/swissprot
+
+  - name: swissprot_readme
+    domain: protein
+    source: UniProtKB/Swiss-Prot
+    source_version: current_release_2026_01
+    license_note: "UniProt release README sidecar."
+    url: https://ftp.uniprot.org/pub/databases/uniprot/current_release/knowledgebase/complete/README
+    raw_subdir: protein/swissprot
+
+  - name: uniref50_fasta
+    domain: protein
+    source: UniRef
+    source_version: current_release_2026_01
+    license_note: "UniProt/UniRef public FTP; record README and release note."
+    url: https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniref/uniref50/uniref50.fasta.gz
+    raw_subdir: protein/uniref50
+
+  - name: uniref50_readme
+    domain: protein
+    source: UniRef
+    source_version: current_release_2026_01
+    license_note: "Release README sidecar."
+    url: https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniref/uniref50/README
+    raw_subdir: protein/uniref50
+
+  - name: uniref50_release_note
+    domain: protein
+    source: UniRef
+    source_version: current_release_2026_01
+    license_note: "Release note sidecar."
+    url: https://ftp.uniprot.org/pub/databases/uniprot/current_release/uniref/uniref50/uniref50.release_note
+    raw_subdir: protein/uniref50
+
+  - name: rnacentral_active_fasta
+    domain: rna
+    source: RNAcentral
+    source_version: current_release_2025_09
+    license_note: "RNAcentral public FTP; active sequences only for main corpus."
+    url: https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/sequences/rnacentral_active.fasta.gz
+    raw_subdir: rna/rnacentral
+
+  - name: rnacentral_readme
+    domain: rna
+    source: RNAcentral
+    source_version: current_release_2025_09
+    license_note: "Release README sidecar."
+    url: https://ftp.ebi.ac.uk/pub/databases/RNAcentral/current_release/sequences/readme.txt
+    raw_subdir: rna/rnacentral
+
+  - name: rfam_RF00001_fasta
+    domain: rna
+    source: Rfam
+    source_version: current_release_2026_01
+    license_note: "Rfam CURRENT per-family FASTA; structured RNA supplement."
+    url: https://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/RF00001.fa.gz
+    raw_subdir: rna/rfam
+
+  - name: rfam_RF00005_fasta
+    domain: rna
+    source: Rfam
+    source_version: current_release_2026_01
+    license_note: "Rfam CURRENT per-family FASTA; structured RNA supplement."
+    url: https://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/RF00005.fa.gz
+    raw_subdir: rna/rfam
+
+  - name: rfam_RF00017_fasta
+    domain: rna
+    source: Rfam
+    source_version: current_release_2026_01
+    license_note: "Rfam CURRENT per-family FASTA; structured RNA supplement."
+    url: https://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/RF00017.fa.gz
+    raw_subdir: rna/rfam
+
+  - name: rfam_RF00026_fasta
+    domain: rna
+    source: Rfam
+    source_version: current_release_2026_01
+    license_note: "Rfam CURRENT per-family FASTA; structured RNA supplement."
+    url: https://ftp.ebi.ac.uk/pub/databases/Rfam/CURRENT/fasta_files/RF00026.fa.gz
+    raw_subdir: rna/rfam
+
+  - name: refseq_viral_genomic_fna
+    domain: dna
+    source: NCBI RefSeq
+    source_version: current_release_viral
+    license_note: "NCBI RefSeq viral genomic FASTA shard; use as DNA pipeline smoke and small viral corpus."
+    url: https://ftp.ncbi.nlm.nih.gov/refseq/release/viral/viral.1.1.genomic.fna.gz
+    raw_subdir: dna/refseq/viral
+
+  - name: refseq_archaea_genomic_fna
+    domain: dna
+    source: NCBI RefSeq
+    source_version: current_release_archaea
+    license_note: "NCBI RefSeq archaea genomic FASTA shard; expands DNA corpus diversity beyond viral smoke data."
+    url: https://ftp.ncbi.nlm.nih.gov/refseq/release/archaea/archaea.1.1.genomic.fna.gz
+    raw_subdir: dna/refseq/archaea
+
+  - name: refseq_fungi_genomic_fna
+    domain: dna
+    source: NCBI RefSeq
+    source_version: current_release_fungi
+    license_note: "NCBI RefSeq fungi genomic FASTA shard; expands DNA corpus diversity beyond viral smoke data."
+    url: https://ftp.ncbi.nlm.nih.gov/refseq/release/fungi/fungi.1.1.genomic.fna.gz
+    raw_subdir: dna/refseq/fungi
+
+  - name: refseq_bacteria_genomic_fna
+    domain: dna
+    source: NCBI RefSeq
+    source_version: current_release_bacteria
+    license_note: "NCBI RefSeq bacteria genomic FASTA shard; expands DNA corpus diversity beyond viral smoke data."
+    url: https://ftp.ncbi.nlm.nih.gov/refseq/release/bacteria/bacteria.1.1.genomic.fna.gz
+    raw_subdir: dna/refseq/bacteria
+
+  - name: pepbenchmark_raw
+    domain: peptide
+    source: PepBenchmark
+    source_version: "ICLR_2026_raw_ba864554"
+    license_note: "PepBenchData_raw on HuggingFace; raw peptide sequences from public databases and literature, recommended by authors for generative modeling and pretraining. Cite Zhang et al., ICLR 2026."
+    download_method: hf_dataset_snapshot
+    hf_repo: jiahuizhang/PepBenchData_raw
+    hf_revision: main
+    url: https://huggingface.co/api/datasets/jiahuizhang/PepBenchData_raw?full=1
+    hf_include_regex: '(^README\.md$|^data/.*/(pos|neg|raw|all|pos_without_X)\.csv$)'
+    hf_files:
+      - README.md
+      - data/ADME/nature/bbp/neg.csv
+      - data/ADME/nature/bbp/pos.csv
+      - data/ADME/nature/cpp/pos.csv
+      - data/ADME/non-nature/nc-cpp/neg.csv
+      - data/ADME/non-nature/nc-cpp/pos.csv
+      - data/ADME/non-nature/nc-cpp_pampa/raw.csv
+      - data/AMP/nature/antibacterial/pos.csv
+      - data/AMP/nature/antifungal/pos.csv
+      - data/AMP/nature/antimicrobial/pos.csv
+      - data/AMP/nature/antimicrobial_E_coli_mic/raw.csv
+      - data/AMP/nature/antimicrobial_P_aeruginosa_mic/raw.csv
+      - data/AMP/nature/antimicrobial_S_aureus_mic/raw.csv
+      - data/AMP/nature/antiparasitic/pos.csv
+      - data/AMP/nature/antiviral/pos.csv
+      - data/AMP/non-nature/nc-antibacterial/pos.csv
+      - data/AMP/non-nature/nc-antibacterial/pos_without_X.csv
+      - data/AMP/non-nature/nc-antifungal/pos.csv
+      - data/AMP/non-nature/nc-antimicrobial/pos.csv
+      - data/Metabolic/nature/ace_inhibitory/pos.csv
+      - data/Metabolic/nature/ace_inhibitory_ic50/raw.csv
+      - data/Metabolic/nature/antidiabetic/neg.csv
+      - data/Metabolic/nature/antidiabetic/pos.csv
+      - data/Metabolic/nature/dppiv_inhibitors/neg.csv
+      - data/Metabolic/nature/dppiv_inhibitors/pos.csv
+      - data/Oncology/nature/anticancer/pos.csv
+      - data/Oncology/nature/ttca/pos.csv
+      - data/Others/nature/antiaging/pos.csv
+      - data/Others/nature/antiinflamatory/pos.csv
+      - data/Others/nature/antioxidant/neg.csv
+      - data/Others/nature/antioxidant/pos.csv
+      - data/Others/nature/neuropeptide/pos.csv
+      - data/Others/nature/quorum_sensing/pos.csv
+      - data/PepPI/nature/PpI/pos.csv
+      - data/PepPI/nature/PpI_X/pos.csv
+      - data/PepPI/nature/PpI_ba/raw.csv
+      - data/PepPI/nature/PpI_ba_X/raw.csv
+      - data/PepPI/non-nature/nc-PpI_ba/raw.csv
+      - data/PhysChem/nature/nonfouling/pos.csv
+      - data/PhysChem/nature/solubility/all.csv
+      - data/PhysChem/nature/solubility/neg.csv
+      - data/PhysChem/nature/solubility/pos.csv
+      - data/Tox/nature/allergen/pos.csv
+      - data/Tox/nature/hemolytic/neg.csv
+      - data/Tox/nature/hemolytic/pos.csv
+      - data/Tox/nature/hemolytic_hc50/raw.csv
+      - data/Tox/nature/hemolytic_strict/neg.csv
+      - data/Tox/nature/hemolytic_strict/pos.csv
+      - data/Tox/nature/neurotoxin/pos.csv
+      - data/Tox/nature/toxicity/pos.csv
+      - data/Tox/non-nature/nc-hemolytic/neg.csv
+      - data/Tox/non-nature/nc-hemolytic/pos.csv
+    raw_subdir: peptide/pepbenchmark_raw
+
+smoke_sources:
+  - chembl_36_chemreps
+  - chembl_36_license
+  - chembl_36_attribution

@@ -1,0 +1,6 @@
+{"id":"mol-1","domain":"small_molecule","sequence":"CCO"}
+{"id":"mol-2","domain":"small_molecule","sequence":"CC(=O)O"}
+{"id":"pep-1","domain":"peptide","sequence":"AGK"}
+{"id":"protein-1","domain":"protein","sequence":"ACDEFG"}
+{"id":"dna-1","domain":"dna","sequence":"ACGT"}
+{"id":"rna-1","domain":"rna","sequence":"ACGU"}

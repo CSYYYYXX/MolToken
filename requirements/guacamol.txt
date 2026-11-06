@@ -1,0 +1,12 @@
+# Official GuacaMol distribution-learning evaluator; separate environment.
+guacamol==0.5.5
+
+# GuacaMol 0.5.5 hard-codes the FCD 1.1 H5 model name.  Do not allow pip to
+# resolve FCD>=1.1 to FCD 1.2.x: those wheels ship a PyTorch .pt resource and
+# are not a drop-in runtime for guacamol.frechet_benchmark.FrechetBenchmark.
+FCD==1.1
+
+# FCD 1.1 uses the bundled Keras H5 ChemNet weights.
+tensorflow==2.15.1
+keras==2.15.0
+numpy>=1.24,<2
